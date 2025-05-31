@@ -1,2 +1,2 @@
-# Fun-Code
-simple fun programs/games
+# Math-Quiz-Game
+A simple Math quiz game
