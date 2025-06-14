@@ -8,9 +8,11 @@ using namespace std;
 static int wrongAns = 0, correctAns = 0;
 double answer, marks;
 int numberOfQuestions, choice, schoice, set_choice, logo, theme;
+bool mixed = false;
 
 string name;
 
+//displays when answer is wrong
 void Wrong() {
 
 	cout <<" WRONG" << endl;
@@ -19,6 +21,7 @@ void Wrong() {
 
 }
 
+//displays when answer is correct
 void Correct() {
 
 	cout <<" CORRECT" << endl;
@@ -26,6 +29,15 @@ void Correct() {
 	correctAns++;
 }
 
+//sets the quotient into having two decimal places
+float round(float var ){
+    
+    float value = (int)(var * 100 + .5);
+    
+    return (float)value / 100;
+}
+
+//the loading screen
 void loading() {
 
 	cout<<endl;
@@ -50,9 +62,22 @@ void loading() {
 	system("cls");
 }
 
+//generates questions based on operation chosen
 void questions(char oper) {
 
 	for (int k = 1; k <= numberOfQuestions; k++) {
+
+		if(mixed == true){
+			char mixed_sign[] = {'+','-','/','*'};
+
+			int operatorIndex;
+
+			operatorIndex = 0 + rand() % 4;
+
+			oper = mixed_sign[operatorIndex];
+		}
+
+
 		int firstValue = 51 + rand() % 50;
 		int secondValue = 1 + rand() % 50;
 		cout << endl;
@@ -101,9 +126,7 @@ void questions(char oper) {
 			}
 			case '/': {
 
-
-
-				if (answer == (firstValue / secondValue)) {
+				if (answer == (round(firstValue / secondValue))) {
 
 					Correct();
 
@@ -147,8 +170,10 @@ void questions(char oper) {
 
 }
 
-
+//game starts here
 void startGame() {
+
+	mixed = false;
 
 	srand(time(0));
 
@@ -284,6 +309,19 @@ void startGame() {
 					questions(sign);
 
 					break;
+				}
+				case 5: {
+
+					loading();
+
+					mixed = true;
+
+					char sign = 'm';
+
+					questions(sign);
+					
+					break;
+
 				}
 				default: {
 
